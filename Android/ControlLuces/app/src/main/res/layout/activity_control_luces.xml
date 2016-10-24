@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_control_luces"
     android:layout_width="match_parent"
@@ -9,8 +8,12 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.tec.lc.ControlLuces">
+    tools:context="com.tec.controlluces.ControlLuces">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!" />
     <Button
         android:id="@+id/Luz3"
         android:layout_width="match_parent"
@@ -68,16 +71,4 @@
         android:layout_alignParentLeft="true"
         android:text="@string/Luz7_off"
         android:onClick="L7OnClick" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/led_red"
-        android:layout_marginTop="51dp"
-        android:id="@+id/L3B"
-        android:layout_marginStart="46dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.tec.lc;
+package com.tec.controlluces;
 
 import org.junit.Test;
 
