@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Control de Luces</string>
-    <string name = "Luz3">L3: Off</string>
-    <string name = "Luz4">L4: Off</string>
-    <string name = "Luz5">L5: Off</string>
-    <string name = "Luz6">L6: Off</string>
-    <string name = "Luz7">L7: Off</string>
+    <string name = "Luz3_off">L3: Off</string>
+    <string name = "Luz4_off">L4: Off</string>
+    <string name = "Luz5_off">L5: Off</string>
+    <string name = "Luz6_off">L6: Off</string>
+    <string name = "Luz7_off">L7: Off</string>
 </resources>
