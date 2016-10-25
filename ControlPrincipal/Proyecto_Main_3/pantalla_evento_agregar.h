@@ -15,6 +15,23 @@ public:
     explicit pantalla_evento_agregar(QWidget *parent = 0);
     ~pantalla_evento_agregar();
 
+private slots:
+    void on_Button_luz_3_2_pressed();
+
+    void on_Button_luz_4_2_pressed();
+
+    void on_Button_luz_5_2_pressed();
+
+    void on_Button_luz_6_2_pressed();
+
+    void on_Button_luz_7_2_pressed();
+
+    void on_Slider_luz_8_2_valueChanged(int value);
+
+    void on_pushButton_Aceptar_pressed();
+
+    void on_pushButton_Cancelar_pressed();
+
 private:
     Ui::pantalla_evento_agregar *ui;
 };

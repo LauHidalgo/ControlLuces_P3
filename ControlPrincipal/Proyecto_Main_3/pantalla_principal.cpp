@@ -4,12 +4,20 @@
 #include <QDebug>
 #include "pantalla_evento_agregar.h"
 #include "pantalla_principal.h"
+#include "clase_eventos.h"
+#include <QList>
+#include <QListData>
+
+int numero_prueba = 0;
 
 Pantalla_Principal::Pantalla_Principal(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Pantalla_Principal)
 {
     ui->setupUi(this);
+
+
+
 
     //QDateTime fechahora = QDateTime::currentDateTime();
 
@@ -124,10 +132,30 @@ void Pantalla_Principal::on_Slider_luz_8_valueChanged(int value)
 
 
 //Este evento corresponde a agregar un nuevo evento para determinar que luces
-//se encenderan o apagaran, en cuanta duracion y en que fecha determinada
+//se encenderan o apagaran y en que fecha determinada
 
 void Pantalla_Principal::on_Button_evento_agregar_pressed()
 {
+    //// Pruebas ////
+
+    nuevo_evento = new clase_eventos;
+
+    //// Pruebas ////
+
     pantalla_evento_agregar *agregarevento = new pantalla_evento_agregar();
+    qDebug() << "Hora evento: "<<QString::number(numero_prueba);
     agregarevento->show();
+}
+
+void Pantalla_Principal::agregar_evento_lista()
+{
+    //// Pruebas ////
+
+    //Lista_Eventos.push_back(*nuevo_evento);
+
+
+
+    qDebug() << "Hora evento: "<<QString::number(numero_prueba);
+
+    //// Pruebas ////
 }
