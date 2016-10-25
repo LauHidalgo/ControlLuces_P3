@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_control_luces"
     android:layout_width="match_parent"
@@ -13,62 +14,60 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Hello World!"
+        android:id="@+id/textView" />
+
     <Button
         android:id="@+id/Luz3"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:background="@drawable/led_red"
+        android:text="@string/Luz3"
         tools:textSize="16sp"
-        android:text="@string/Luz3_off"
-        android:onClick="L3OnClick"
-        android:layout_marginTop="111dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="65dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
     <Button
         android:id="@+id/Luz4"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        tools:textSize="16sp"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/Luz3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="@string/Luz4_off"
-        android:onClick="L4OnCLick" />
+        tools:textSize="16sp"
+        android:text="@string/Luz4"
+        android:background="@drawable/led_red"/>
 
     <Button
         android:id="@+id/Luz5"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:textAppearance="@style/TextAppearance.AppCompat"
         tools:textSize="16sp"
         android:layout_below="@+id/Luz4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="@string/Luz5_off"
-        android:onClick="L5OnClick" />
+        android:text="@string/Luz5"
+        android:background="@drawable/led_red"/>
 
     <Button
         android:id="@+id/Luz6"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:textAppearance="@style/TextAppearance.AppCompat"
         tools:textSize="16sp"
         android:layout_below="@+id/Luz5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="@string/Luz6_off"
-        android:onClick="L6OnClick" />
+        android:text="@string/Luz6"
+        android:background="@drawable/led_red" />
 
     <Button
         android:id="@+id/Luz7"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:textAppearance="@style/TextAppearance.AppCompat"
         tools:textSize="16sp"
         android:layout_below="@+id/Luz6"
-        android:layout_alignParentLeft="true"
-        android:text="@string/Luz7_off"
-        android:onClick="L7OnClick" />
+        android:text="@string/Luz7"
+        android:background="@drawable/led_red" />
+
 </RelativeLayout>

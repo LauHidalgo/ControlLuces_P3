@@ -1,0 +1,25 @@
+//prueba
+        bL3 = (Button) findViewById(R.id.Luz3p);
+        bL3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(isPressed[0])
+                    bL3.setBackgroundResource(R.drawable.led_red);
+                else
+                    bL3.setBackgroundResource(R.drawable.led_green);
+                isPressed[0] = !isPressed[0];
+            }
+        });//Close bL3.setOnClickListener
+		
+		
+		
+		
+<Button
+    android:id="@+id/Luz3p"
+	android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/led_red"
+    android:layout_alignParentBottom="true"
+    android:layout_toEndOf="@+id/textView"
+    android:layout_marginBottom="13dp"
+    android:onClick="LOnCLick"/>
