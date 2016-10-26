@@ -4,11 +4,18 @@
 #include <QDebug>
 #include "pantalla_evento_agregar.h"
 #include "pantalla_principal.h"
-#include "clase_eventos.h"
 #include <QList>
 #include <QListData>
 
-int numero_prueba = 0;
+
+QDateTime pantalla_agregar_fecha_hora;
+int pantalla_agregar_luz_3,pantalla_agregar_luz_4,pantalla_agregar_luz_5,pantalla_agregar_luz_6,pantalla_agregar_luz_7,pantalla_agregar_luz_8;
+
+
+QList <QDateTime> Lista_Eventos;  //Esta sera la lista de eventos futuros tipo QDateTime indexados de manera correspondiente
+
+pantalla_evento_agregar *agregarevento;
+
 
 Pantalla_Principal::Pantalla_Principal(QWidget *parent) :
     QMainWindow(parent),
@@ -16,17 +23,7 @@ Pantalla_Principal::Pantalla_Principal(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
-
-
-    //QDateTime fechahora = QDateTime::currentDateTime();
-
-    //QString fechahoraSTR = fechahora.toString("dd/MM/yyyy hh:mm:ss");
-
-    //qDebug() << "Hora Actual: " << fechahoraSTR;
-
-    //ui->horaactual->setText(fechahoraSTR);
-
+    inicializacion_pantalla_principal();
 }
 
 Pantalla_Principal::~Pantalla_Principal()
@@ -34,45 +31,6 @@ Pantalla_Principal::~Pantalla_Principal()
     delete ui;
 
 }
-
-/*void Pantalla_Principal::on_PushButton_clicked()
-{
-    QDateTime cambiofechahora;
-
-    cambiofechahora.setDate(ui->dateEdit->date());
-
-    cambiofechahora.setTime(ui->dateTimeEdit_2->time());
-
-    QString cambiofechahoraSTR = cambiofechahora.toString("dd/MM/yyyy hh:mm:ss AP");
-
-    ui->horaactual->setText(cambiofechahoraSTR);
-
-}
-
-
-
-void Pantalla_Principal::on_verticalSlider_sliderReleased()
-{
-    ui->lcdNumber->display(ui->verticalSlider->value());
-}
-
-void Pantalla_Principal::on_verticalSlider_valueChanged(int value)
-{
-    ui->lcdNumber->display(value);
-    ui->label2->setText(QString::number(value));
-}*/
-
-
-
-/*void Pantalla_Principal::on_luz3Button_pressed()
-{
-    if(ui->luz3Button->isChecked()){
-        ui->luz3Button->setText("OFF");
-    }
-    else{
-        ui->luz3Button->settext("ON");
-    }
-}*/
 
 
 //Nota: el estado de las luces se manejara con la lectura constante
@@ -131,31 +89,39 @@ void Pantalla_Principal::on_Slider_luz_8_valueChanged(int value)
 }
 
 
+
 //Este evento corresponde a agregar un nuevo evento para determinar que luces
 //se encenderan o apagaran y en que fecha determinada
 
 void Pantalla_Principal::on_Button_evento_agregar_pressed()
 {
-    //// Pruebas ////
-
-    nuevo_evento = new clase_eventos;
-
-    //// Pruebas ////
-
-    pantalla_evento_agregar *agregarevento = new pantalla_evento_agregar();
-    qDebug() << "Hora evento: "<<QString::number(numero_prueba);
     agregarevento->show();
 }
 
 void Pantalla_Principal::agregar_evento_lista()
 {
-    //// Pruebas ////
-
-    //Lista_Eventos.push_back(*nuevo_evento);
-
-
-
-    qDebug() << "Hora evento: "<<QString::number(numero_prueba);
+    Lista_Eventos.append(pantalla_agregar_fecha_hora);
 
     //// Pruebas ////
+
+    QString fechahoraSTR = pantalla_agregar_fecha_hora.toString("dd/MM/yyyy hh:mm AP");
+
+    qDebug() << "Elemento Agregado: " << fechahoraSTR;
+    qDebug() << "Elementos en Lista: ";
+
+    for (int i=0; i<Lista_Eventos.count(); i++){
+        qDebug() << Lista_Eventos.value(i).toString("dd/MM/yyyy hh:mm AP");
+    }
+    qDebug() << "===================================";
+
+    ui->listWidget->addItem(pantalla_agregar_fecha_hora.toString("dd/MM/yyyy hh:mm AP"));
+
+    //// Pruebas ////
+}
+
+void Pantalla_Principal::inicializacion_pantalla_principal(){
+
+    agregarevento = new pantalla_evento_agregar();
+
+    connect(agregarevento,SIGNAL(ventana_cerrar()),this,SLOT(agregar_evento_lista()));
 }

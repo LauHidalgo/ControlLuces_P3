@@ -2,7 +2,6 @@
 #define PANTALLA_PRINCIPAL_H
 
 #include <QMainWindow>
-#include "clase_eventos.h"
 #include <QList>
 #include <QSharedPointer>
 
@@ -18,15 +17,12 @@ public:
     explicit Pantalla_Principal(QWidget *parent = 0 );
     ~Pantalla_Principal();
 
-    QList<QSharedPointer<clase_eventos> > Lista_Eventos;
+    void inicializacion_pantalla_principal();
 
-    clase_eventos *nuevo_evento;
+    Ui::Pantalla_Principal *ui;
 
-    void agregar_evento_lista();
 
-    //int numero_prueba;
-
-private slots:
+public slots:
 
     //Cambio de estado en los botones/sliders que encienden/apagan las
     //luces en el modo mmanual
@@ -39,8 +35,12 @@ private slots:
 
     void on_Button_evento_agregar_pressed();
 
+    void agregar_evento_lista();
+
 private:
-    Ui::Pantalla_Principal *ui;
+
+
+
 };
 
 #endif // PANTALLA_PRINCIPAL_H

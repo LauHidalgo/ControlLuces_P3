@@ -15,7 +15,7 @@ public:
     explicit pantalla_evento_agregar(QWidget *parent = 0);
     ~pantalla_evento_agregar();
 
-private slots:
+public slots:
     void on_Button_luz_3_2_pressed();
 
     void on_Button_luz_4_2_pressed();
@@ -34,6 +34,9 @@ private slots:
 
 private:
     Ui::pantalla_evento_agregar *ui;
+
+signals:
+    void ventana_cerrar();
 };
 
 #endif // PANTALLA_EVENTO_AGREGAR_H

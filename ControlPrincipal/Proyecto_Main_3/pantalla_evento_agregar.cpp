@@ -1,9 +1,14 @@
 #include "pantalla_evento_agregar.h"
 #include "ui_pantalla_evento_agregar.h"
 #include "pantalla_principal.h"
+#include <QDateTime>
+#include <QDate>
+#include <QTime>
 
 
 extern int numero_prueba;
+extern QDateTime pantalla_agregar_fecha_hora;
+extern int pantalla_agregar_luz_3,pantalla_agregar_luz_4,pantalla_agregar_luz_5,pantalla_agregar_luz_6,pantalla_agregar_luz_7,pantalla_agregar_luz_8;
 
 
 pantalla_evento_agregar::pantalla_evento_agregar(QWidget *parent) :
@@ -79,11 +84,10 @@ void pantalla_evento_agregar::on_pushButton_Aceptar_pressed()
 
     //// Pruebas ////
 
-    numero_prueba = ui->timeEdit->time().hour();
+    pantalla_agregar_fecha_hora.setDate(ui->dateEdit_Fecha->date());
+    pantalla_agregar_fecha_hora.setTime(ui->timeEdit->time());
 
-    Pantalla_Principal *pantalla_principal = new Pantalla_Principal();
-
-    pantalla_principal->agregar_evento_lista();
+    emit ventana_cerrar();
 
     //// Pruebas ////
 
@@ -95,3 +99,5 @@ void pantalla_evento_agregar::on_pushButton_Cancelar_pressed()
 {
     pantalla_evento_agregar::close();
 }
+
+

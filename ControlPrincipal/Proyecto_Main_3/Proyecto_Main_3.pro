@@ -14,12 +14,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         pantalla_principal.cpp \
-    pantalla_evento_agregar.cpp \
-    clase_eventos.cpp
+    pantalla_evento_agregar.cpp
 
 HEADERS  += pantalla_principal.h \
-    pantalla_evento_agregar.h \
-    clase_eventos.h
+    pantalla_evento_agregar.h
 
 FORMS    += pantalla_principal.ui \
     pantalla_evento_agregar.ui
