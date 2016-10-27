@@ -6,9 +6,9 @@
 #include <QTime>
 
 
-extern int numero_prueba;
 extern QDateTime pantalla_agregar_fecha_hora;
-extern int pantalla_agregar_luz_3,pantalla_agregar_luz_4,pantalla_agregar_luz_5,pantalla_agregar_luz_6,pantalla_agregar_luz_7,pantalla_agregar_luz_8;
+extern int pantalla_agregar_luz_8;
+extern bool pantalla_agregar_luz_3,pantalla_agregar_luz_4,pantalla_agregar_luz_5,pantalla_agregar_luz_6,pantalla_agregar_luz_7;
 
 
 pantalla_evento_agregar::pantalla_evento_agregar(QWidget *parent) :
@@ -82,14 +82,22 @@ void pantalla_evento_agregar::on_Slider_luz_8_2_valueChanged(int value2)
 void pantalla_evento_agregar::on_pushButton_Aceptar_pressed()
 {
 
-    //// Pruebas ////
-
     pantalla_agregar_fecha_hora.setDate(ui->dateEdit_Fecha->date());
     pantalla_agregar_fecha_hora.setTime(ui->timeEdit->time());
 
-    emit ventana_cerrar();
+    //// Pruebas ////
+    pantalla_agregar_luz_3 = ui->Button_luz_3_2->isChecked();
+    pantalla_agregar_luz_4 = ui->Button_luz_4_2->isChecked();
+    pantalla_agregar_luz_5 = ui->Button_luz_5_2->isChecked();
+    pantalla_agregar_luz_6 = ui->Button_luz_6_2->isChecked();
+    pantalla_agregar_luz_7 = ui->Button_luz_7_2->isChecked();
+    pantalla_agregar_luz_8 = ui->Slider_luz_8_2->value();
 
     //// Pruebas ////
+
+    emit ventana_cerrar();
+
+
 
 
     pantalla_evento_agregar::close();

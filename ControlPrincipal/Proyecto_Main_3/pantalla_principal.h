@@ -34,10 +34,12 @@ public slots:
     void on_Slider_luz_8_valueChanged(int value);
 
     void on_Button_evento_agregar_pressed();
+    void on_Button_evento_eliminar_pressed();
 
     void agregar_evento_lista();
 
-private:
+    void Debug_Pruebas();
+
 
 
 

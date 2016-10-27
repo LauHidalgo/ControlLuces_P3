@@ -373,32 +373,30 @@
      </rect>
     </property>
     <property name="text">
-     <string>Agregar un Evento</string>
+     <string>Agregar Evento</string>
     </property>
    </widget>
-   <widget class="QTableWidget" name="tableWidget_eventos">
+   <widget class="QPushButton" name="Button_evento_eliminar">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>500</y>
+      <width>141</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Eliminar Evento</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listWidget">
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>100</y>
+      <y>90</y>
       <width>381</width>
-      <height>371</height>
+      <height>401</height>
      </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="showGrid">
-     <bool>true</bool>
-    </property>
-    <property name="rowCount">
-     <number>0</number>
-    </property>
-    <property name="columnCount">
-     <number>0</number>
     </property>
    </widget>
   </widget>
