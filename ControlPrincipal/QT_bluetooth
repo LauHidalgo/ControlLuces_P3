@@ -1,0 +1,98 @@
+/#################################################################################################
+//###########################Retrieving Local Device Information
+QBluetoothLocalDevice localDevice;
+QString localDeviceName;
+
+// Check if Bluetooth is available on this device
+if (localDevice.isValid()) {
+
+    // Turn Bluetooth on
+    localDevice.powerOn();
+
+    // Read local device name
+    localDeviceName = localDevice.name();
+
+    // Make it visible to others
+    localDevice.setHostMode(QBluetoothLocalDevice::HostDiscoverable)
+	
+	// Get connected devices
+    QList<QBluetoothAddress> remotes;
+    remotes = localDevice.connectedDevices();
+}
+//#################################################################################################
+
+//#################################################################################################
+//#########################Scanning for Bluetooth Devices
+void MyClass::startDeviceDiscovery()
+{
+
+    // Create a discovery agent and connect to its signals
+    QBluetoothDeviceDiscoveryAgent *discoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
+    connect(discoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)),
+            this, SLOT(deviceDiscovered(QBluetoothDeviceInfo)));
+
+    // Start a discovery
+    discoveryAgent->start();
+
+    //...
+}
+
+// In your local slot, read information about the found devices
+void MyClass::deviceDiscovered(const QBluetoothDeviceInfo &device)
+{
+    qDebug() << "Found new device:" << device.name() << '(' << device.address().toString() << ')';
+}
+//#################################################################################################
+
+//#################################################################################################
+//##############################Pushing Files to Remote Devices
+// Create a transfer manager
+QBluetoothTransferManager *transferManager = new QBluetoothTransferManager(this);
+
+// Create the transfer request and file to be sent
+QBluetoothTransferRequest request(device.address());
+QFile *file = new QFile("testfile.txt");
+
+// Ask the transfer manager to send it
+QBluetoothTransferReply *reply = transferManager->put(request, file);
+if (reply->error() == QBluetoothTransferReply::NoError) {
+
+    // Connect to the reply's signals to be informed about the status and do cleanups when done
+    QObject::connect(reply, SIGNAL(finished(QBluetoothTransferReply*)),
+                     this, SLOT(transferFinished(QBluetoothTransferReply*)));
+    QObject::connect(reply, SIGNAL(error(QBluetoothTransferReply::TransferError)),
+                     this, SLOT(error(QBluetoothTransferReply::TransferError)));
+} else {
+    qWarning() << "Cannot push testfile.txt:" << reply->errorString();
+}
+
+		
+//#################################################################################################
+
+//#################################################################################################
+//##############################Exchanging Data Between Device
+rfcommServer = new QBluetoothServer(QBluetoothServiceInfo::RfcommProtocol, this);
+connect(rfcommServer, SIGNAL(newConnection()), this, SLOT(clientConnected()));
+bool result = rfcommServer->listen(localAdapter);
+if (!result) {
+    qWarning() << "Cannot bind chat server to" << localAdapter.toString();
+    return;
+}
+
+
+//Connect to this server from another device playing the client role by using a QBluetoothSocket.'
+void ChatClient::startClient(const QBluetoothServiceInfo &remoteService)
+{
+    if (socket)
+        return;
+
+    // Connect to service
+    socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
+    qDebug() << "Create socket";
+    socket->connectToService(remoteService);
+    qDebug() << "ConnectToService done";
+
+    connect(socket, SIGNAL(readyRead()), this, SLOT(readSocket()));
+    connect(socket, SIGNAL(connected()), this, SLOT(connected()));
+    connect(socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()));
+}
