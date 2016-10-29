@@ -8,16 +8,13 @@ import android.widget.Button;
 
 public class ControlLuces extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //Definicion de variables
         final Boolean[] isPressed = {false};
-        final Button bL3;
-        final Button bL4;
-        final Button bL5;
-        final Button bL6;
-        final Button bL7;
+        final Button bL3, bL4, bL5, bL6, bL7;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_luces);
