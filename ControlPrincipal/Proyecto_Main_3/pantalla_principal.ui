@@ -363,32 +363,6 @@
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="Button_evento_agregar">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>500</y>
-      <width>141</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Agregar Evento</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="Button_evento_eliminar">
-    <property name="geometry">
-     <rect>
-      <x>640</x>
-      <y>500</y>
-      <width>141</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Eliminar Evento</string>
-    </property>
-   </widget>
    <widget class="QListWidget" name="listWidget">
     <property name="geometry">
      <rect>
@@ -397,6 +371,58 @@
       <width>381</width>
       <height>401</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Button_Historial">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>460</y>
+      <width>281</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ver Historial</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>500</y>
+      <width>371</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="Button_evento_agregar">
+       <property name="text">
+        <string>Agregar Evento</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="Button_evento_eliminar">
+       <property name="text">
+        <string>Eliminar Evento</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="Button_Guardar_Historial">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>500</y>
+      <width>281</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Guardar Historial</string>
     </property>
    </widget>
   </widget>

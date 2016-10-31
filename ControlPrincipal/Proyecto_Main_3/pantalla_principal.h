@@ -37,12 +37,18 @@ public slots:
     void on_Button_evento_eliminar_pressed();
 
     void agregar_evento_lista();
+    void agregar_entrada_historial();
+
+    QString string_estatus_dispositivo(bool historial);
 
     void Debug_Pruebas();
 
 
 
 
+private slots:
+    void on_Button_Guardar_Historial_clicked();
+    void on_Button_Historial_clicked();
 };
 
 #endif // PANTALLA_PRINCIPAL_H
