@@ -38,6 +38,8 @@ public slots:
 
     void agregar_evento_lista();
     void agregar_entrada_historial();
+    void revision_eventos();
+    //void guardado_eventos();
 
     QString string_estatus_dispositivo(bool historial);
 

@@ -16,6 +16,8 @@ public:
     ~pantalla_historial();
     Ui::pantalla_historial *ui;
     void desplegar_historial(QString datos);
+private slots:
+    void on_pushButton_Historial_Aceptar_clicked();
 };
 
 #endif // PANTALLA_HISTORIAL_H

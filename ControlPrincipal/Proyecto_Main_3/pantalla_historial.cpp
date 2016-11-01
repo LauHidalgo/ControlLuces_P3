@@ -17,3 +17,8 @@ void pantalla_historial::desplegar_historial(QString datos){
 
     ui->textBrowser_Historial->setText(datos);
 }
+
+void pantalla_historial::on_pushButton_Historial_Aceptar_clicked()
+{
+    pantalla_historial::close();
+}

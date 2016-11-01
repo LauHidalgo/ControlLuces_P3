@@ -17,20 +17,19 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QTimer>
 
 
 //=======================================================================//
 //      Declaracion de variables y objetos
 //=======================================================================//
 
-
-//Variables para que la ventana secundaria use como extern (interaccion entre ventanas)
+//Variables/Objetos para que la ventana secundaria use como extern (interaccion entre ventanas)
 QDateTime pantalla_agregar_fecha_hora;
 int pantalla_agregar_luz_8;
 bool pantalla_agregar_luz_3,pantalla_agregar_luz_4,pantalla_agregar_luz_5,pantalla_agregar_luz_6,pantalla_agregar_luz_7;
 
-
-//Array de eventos y sus respectivos estatus por fechaa/hora y numero de luz.
+//Array de eventos y sus respectivos estatus por fecha/hora y numero de luz.
 QList <QDateTime> Lista_Eventos_Fecha_Hora;  //Esta sera la lista de eventos futuros tipo QDateTime indexados de manera correspondiente
 QList <bool> Lista_Eventos_Luz_3;            //Listas de estatus de las luces, cada elemento esta conectado por el indice a una fecha y hora respectiva
 QList <bool> Lista_Eventos_Luz_4;
@@ -38,12 +37,11 @@ QList <bool> Lista_Eventos_Luz_5;
 QList <bool> Lista_Eventos_Luz_6;
 QList <bool> Lista_Eventos_Luz_7;
 QList <int> Lista_Eventos_Luz_8;
-
+QList <bool> Lista_Eventos_Ejecutado;
 
 //Estados de las luces L1 y L2, que al no tener boton se establecen manualmente
 bool Status_Luz_1 = false;
 bool Status_Luz_2 = false;
-
 
 //Declaracion de la ventana secundaria (para ser mostrada)
 pantalla_evento_agregar *agregarevento;
@@ -51,8 +49,12 @@ pantalla_evento_agregar *agregarevento;
 //Declaracion de la ventana secundaria de historial (para ser mostrada)
 pantalla_historial *pantallahistorial;
 
-//Variable que guardara la fecha y hora actuales
+//Objeto que guardara la fecha y hora actuales
 QDateTime fecha_hora_actuales;
+
+//Objetos QTimer que se encargaran de actualizar diversas funciones del codigo principal
+QTimer *timer_historial;
+QTimer *ejecucion_eventos;
 
 
 
@@ -60,6 +62,7 @@ QDateTime fecha_hora_actuales;
 //      Funciones principales
 //=======================================================================//
 
+//---------------------------------
 //Declaracion de la ventana "Pantalla Principal" como un QWidget
 Pantalla_Principal::Pantalla_Principal(QWidget *parent) :
     QMainWindow(parent),
@@ -73,6 +76,7 @@ Pantalla_Principal::Pantalla_Principal(QWidget *parent) :
                                             //lograr la funcionalidad deseada    
 }
 
+//---------------------------------
 //Metodo para destruir la Pantalla Principal
 Pantalla_Principal::~Pantalla_Principal()
 {
@@ -80,6 +84,7 @@ Pantalla_Principal::~Pantalla_Principal()
 
 }
 
+//---------------------------------
 //Funcion de inicializacion para los procesos principales
 void Pantalla_Principal::inicializacion_pantalla_principal(){
 
@@ -92,12 +97,20 @@ void Pantalla_Principal::inicializacion_pantalla_principal(){
     //Conexion de la senal de cerrar ventana agregar eventos a la senal agregar evento lista de la pantalla principal
     connect(agregarevento,SIGNAL(ventana_cerrar()),this,SLOT(agregar_evento_lista()));
 
-    //Cuando se inicia el programa principal registra el estado del logger, si no existe crea uno,
-    //sino, agrega el primer registro del ciclo actual.
-    agregar_entrada_historial();
+    //Conexion de la senal de guardar elementos en el historial al timer correspondiente
+    timer_historial = new QTimer();
+    connect(timer_historial,SIGNAL(timeout()),this,SLOT(agregar_entrada_historial()));
+    timer_historial->start(5000);   //Periodos en milisegundos para actualizar
+
+    //Conexion de la senal de revision de eventos al timer correspondiente
+    ejecucion_eventos = new QTimer();
+    connect(ejecucion_eventos,SIGNAL(timeout()),this,SLOT(revision_eventos()));
+    ejecucion_eventos->start(1000);
+
 }
 
 
+//---------------------------------
 //Nota: el estado de las luces se manejara con la lectura constante
 //del estado en el que se encuentren estos botones, por lo tanto, se ahorrara
 //espacio al no tener que declarar variables extra
@@ -153,6 +166,7 @@ void Pantalla_Principal::on_Slider_luz_8_valueChanged(int value)
 }
 
 
+//---------------------------------
 //Este evento corresponde a agregar un nuevo evento para determinar que luces
 //se encenderan o apagaran y en que fecha determinada
 void Pantalla_Principal::on_Button_evento_agregar_pressed()
@@ -161,6 +175,7 @@ void Pantalla_Principal::on_Button_evento_agregar_pressed()
 }
 
 
+//---------------------------------
 //Procedimiento para agregar eventos a las listas correspondientes de estados
 void Pantalla_Principal::agregar_evento_lista()
 {
@@ -172,6 +187,7 @@ void Pantalla_Principal::agregar_evento_lista()
     Lista_Eventos_Luz_6.append(pantalla_agregar_luz_6);
     Lista_Eventos_Luz_7.append(pantalla_agregar_luz_7);
     Lista_Eventos_Luz_8.append(pantalla_agregar_luz_8);
+    Lista_Eventos_Ejecutado.append(false);
 
     //Declaracion de la variable del String para agregar los eventos a la lista del GUI
     QString listWidget_String;
@@ -184,12 +200,16 @@ void Pantalla_Principal::agregar_evento_lista()
 
     /////////
     //Pruebas
-    Debug_Pruebas();
+    //fecha_hora_actuales = QDateTime::currentDateTime();
+    //int tiempo_restante = Lista_Eventos_Fecha_Hora.last().secsTo(fecha_hora_actuales);
+    //qDebug() << "Milisegundos hasta cumplirse: " << tiempo_restante;
+    //Debug_Pruebas();
     //Pruebas
     /////////
 }
 
 
+//---------------------------------
 //Procedimiento para eliminar eventos seleccionados en la lista
 void Pantalla_Principal::on_Button_evento_eliminar_pressed()
 {
@@ -207,6 +227,7 @@ void Pantalla_Principal::on_Button_evento_eliminar_pressed()
     Lista_Eventos_Luz_6.removeAt(ui->listWidget->currentIndex().row());
     Lista_Eventos_Luz_7.removeAt(ui->listWidget->currentIndex().row());
     Lista_Eventos_Luz_8.removeAt(ui->listWidget->currentIndex().row());
+    Lista_Eventos_Ejecutado.removeAt(ui->listWidget->currentIndex().row());
 
     //Eliminacion del item de la lista del GUI
     ui->listWidget->currentItem()->~QListWidgetItem();
@@ -220,7 +241,8 @@ void Pantalla_Principal::on_Button_evento_eliminar_pressed()
 }
 
 
-//Codigo que permite guardar los datos cada 5 segundos en un archivo logger
+//---------------------------------
+//Codigo que permite guardar periodicamente el historial en la tarjeta SD
 void Pantalla_Principal::agregar_entrada_historial(){
 
     QFile archivo;  //Creacion de un elemento QFile
@@ -253,6 +275,7 @@ void Pantalla_Principal::agregar_entrada_historial(){
 }
 
 
+//---------------------------------
 //Codigo de pruebas
 void Pantalla_Principal::Debug_Pruebas(){
 
@@ -276,6 +299,7 @@ void Pantalla_Principal::Debug_Pruebas(){
 }
 
 
+//---------------------------------
 //Codigo del boton que permite exportar una copia del historial a un dispositivo externo
 //u otra locacion
 void Pantalla_Principal::on_Button_Guardar_Historial_clicked()
@@ -316,6 +340,8 @@ void Pantalla_Principal::on_Button_Guardar_Historial_clicked()
         stream_copia << string;
         stream_copia.flush();
         archivo_copia.close();
+        //Se desplega un mensaje de informacion acerca de la copia exitosa del historial
+        QMessageBox::information(this, "Mensaje", "Registro exportado exitosamente!");
         qDebug() << "Archivo Copiado!";
 
     }
@@ -323,6 +349,7 @@ void Pantalla_Principal::on_Button_Guardar_Historial_clicked()
 }
 
 
+//---------------------------------
 //Funcion que devuelve un string de estatus para el historial o para la lista de eventos
 //de la ventana principal
 QString Pantalla_Principal::string_estatus_dispositivo(bool historial){
@@ -436,6 +463,7 @@ QString Pantalla_Principal::string_estatus_dispositivo(bool historial){
 }
 
 
+//---------------------------------
 //Boton que muestra la ventana del historial guardado en el equipo
 void Pantalla_Principal::on_Button_Historial_clicked()
 {
@@ -464,3 +492,97 @@ void Pantalla_Principal::on_Button_Historial_clicked()
         pantallahistorial->show();
     }
 }
+
+
+//---------------------------------
+//Funcion que permite verificar y/o modificar el estado cuando es la hora de un evento
+void Pantalla_Principal::revision_eventos(){
+
+    /////////
+    //Pruebas
+    //int tiempo_restante = Lista_Eventos_Fecha_Hora.value(i).secsTo(fecha_hora_actuales);
+    qDebug() << "-Metodo Revision-";
+    //qDebug() << "Segundos Restantes: " << tiempo_restante;
+    //Pruebas
+    /////////
+
+
+    //Este procedimiento unicamente se realiza cuando la lista de eventos no esta vacia.
+    if (!Lista_Eventos_Fecha_Hora.empty()){
+
+        for (int i=0; i <= Lista_Eventos_Fecha_Hora.count()-1 ;i++){
+
+            fecha_hora_actuales = QDateTime::currentDateTime();
+
+            int tiempo_restante = Lista_Eventos_Fecha_Hora.value(i).secsTo(fecha_hora_actuales);
+
+            /////////
+            //Pruebas
+            qDebug() << "Segundos Restantes: " << tiempo_restante;
+            qDebug() << "Index del evento: " << i;
+            qDebug() << "Ejecutado?: " << Lista_Eventos_Ejecutado.value(i);
+            //Pruebas
+            /////////
+
+            if((tiempo_restante > 0)&&(!Lista_Eventos_Ejecutado.value(i))){
+
+                //Modificacion valor Luz 3
+                if(Lista_Eventos_Luz_3.value(i)){
+                   ui->Button_luz_3->setChecked(true);
+                   ui->Button_luz_3->setText("ON");}
+                else{
+                    ui->Button_luz_3->setChecked(false);
+                    ui->Button_luz_3->setText("OFF");}
+
+                //Modificacion valor Luz 4
+                if(Lista_Eventos_Luz_4.value(i)){
+                   ui->Button_luz_4->setChecked(true);
+                   ui->Button_luz_4->setText("ON");}
+                else{
+                    ui->Button_luz_4->setChecked(false);
+                    ui->Button_luz_4->setText("OFF");}
+
+                //Modificacion valor Luz 5
+                if(Lista_Eventos_Luz_5.value(i)){
+                   ui->Button_luz_5->setChecked(true);
+                   ui->Button_luz_5->setText("ON");}
+                else{
+                    ui->Button_luz_5->setChecked(false);
+                    ui->Button_luz_5->setText("OFF");}
+
+                //Modificacion valor Luz 6
+                if(Lista_Eventos_Luz_6.value(i)){
+                   ui->Button_luz_6->setChecked(true);
+                   ui->Button_luz_6->setText("ON");}
+                else{
+                    ui->Button_luz_6->setChecked(false);
+                    ui->Button_luz_6->setText("OFF");}
+
+                //Modificacion valor Luz 7
+                if(Lista_Eventos_Luz_7.value(i)){
+                   ui->Button_luz_7->setChecked(true);
+                   ui->Button_luz_7->setText("ON");}
+                else{
+                    ui->Button_luz_7->setChecked(false);
+                    ui->Button_luz_7->setText("OFF");}
+
+                //Modificacion valor Luz 8
+                ui->Slider_luz_8->setValue(Lista_Eventos_Luz_8.value(i));
+
+                //Modificacion del valor de ejecutado del Elemento
+                ui->listWidget->setCurrentRow(i);
+
+                //Se elimina el elemento de la lista
+                on_Button_evento_eliminar_pressed();
+
+            }
+
+        }
+
+
+    }
+
+
+
+}
+

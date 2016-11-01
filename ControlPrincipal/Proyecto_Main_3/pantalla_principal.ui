@@ -422,7 +422,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Guardar Historial</string>
+     <string>Exportar Historial</string>
     </property>
    </widget>
   </widget>
