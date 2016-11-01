@@ -37,7 +37,7 @@ QList <bool> Lista_Eventos_Luz_5;
 QList <bool> Lista_Eventos_Luz_6;
 QList <bool> Lista_Eventos_Luz_7;
 QList <int> Lista_Eventos_Luz_8;
-QList <bool> Lista_Eventos_Ejecutado;
+//QList <bool> Lista_Eventos_Ejecutado;
 
 //Estados de las luces L1 y L2, que al no tener boton se establecen manualmente
 bool Status_Luz_1 = false;
@@ -187,7 +187,6 @@ void Pantalla_Principal::agregar_evento_lista()
     Lista_Eventos_Luz_6.append(pantalla_agregar_luz_6);
     Lista_Eventos_Luz_7.append(pantalla_agregar_luz_7);
     Lista_Eventos_Luz_8.append(pantalla_agregar_luz_8);
-    Lista_Eventos_Ejecutado.append(false);
 
     //Declaracion de la variable del String para agregar los eventos a la lista del GUI
     QString listWidget_String;
@@ -227,7 +226,6 @@ void Pantalla_Principal::on_Button_evento_eliminar_pressed()
     Lista_Eventos_Luz_6.removeAt(ui->listWidget->currentIndex().row());
     Lista_Eventos_Luz_7.removeAt(ui->listWidget->currentIndex().row());
     Lista_Eventos_Luz_8.removeAt(ui->listWidget->currentIndex().row());
-    Lista_Eventos_Ejecutado.removeAt(ui->listWidget->currentIndex().row());
 
     //Eliminacion del item de la lista del GUI
     ui->listWidget->currentItem()->~QListWidgetItem();
@@ -520,11 +518,10 @@ void Pantalla_Principal::revision_eventos(){
             //Pruebas
             qDebug() << "Segundos Restantes: " << tiempo_restante;
             qDebug() << "Index del evento: " << i;
-            qDebug() << "Ejecutado?: " << Lista_Eventos_Ejecutado.value(i);
             //Pruebas
             /////////
 
-            if((tiempo_restante > 0)&&(!Lista_Eventos_Ejecutado.value(i))){
+            if(tiempo_restante > 0){
 
                 //Modificacion valor Luz 3
                 if(Lista_Eventos_Luz_3.value(i)){
@@ -569,7 +566,7 @@ void Pantalla_Principal::revision_eventos(){
                 //Modificacion valor Luz 8
                 ui->Slider_luz_8->setValue(Lista_Eventos_Luz_8.value(i));
 
-                //Modificacion del valor de ejecutado del Elemento
+                //Se elige la columna del evento para eliminarlo
                 ui->listWidget->setCurrentRow(i);
 
                 //Se elimina el elemento de la lista
