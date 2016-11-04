@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
+    package="com.example.usuario.controlluces01">
+=======
     package="com.tec.controlluces">
+>>>>>>> 937e940dac6b38123a3387f53b5305b15a6791e4
 
     <application
         android:allowBackup="true"
@@ -8,7 +12,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
+        <activity android:name=".MainActivity">
+=======
         <activity android:name=".ControlLuces">
+>>>>>>> 937e940dac6b38123a3387f53b5305b15a6791e4
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

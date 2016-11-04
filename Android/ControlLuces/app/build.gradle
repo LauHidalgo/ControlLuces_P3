@@ -2,10 +2,17 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
+<<<<<<< HEAD
+    buildToolsVersion "24.0.3"
+    defaultConfig {
+        applicationId "com.example.usuario.controlluces01"
+        minSdkVersion 15
+=======
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.tec.controlluces"
         minSdkVersion 19
+>>>>>>> 937e940dac6b38123a3387f53b5305b15a6791e4
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
