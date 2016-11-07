@@ -3,6 +3,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.tec.controlluces.R;
+
 public class buttons extends AppCompatActivity {
 
     //Creacion de variables

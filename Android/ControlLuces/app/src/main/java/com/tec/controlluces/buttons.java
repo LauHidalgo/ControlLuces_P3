@@ -1,7 +1,7 @@
 package com.tec.controlluces;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -25,11 +25,7 @@ public class buttons extends AppCompatActivity {
                     bL3.setBackgroundResource(R.drawable.led_red);}
                 else{ //led on
                     bL3.setBackgroundResource(R.drawable.led_green);}
-                isPressed[0] = !isPressed[0];
-
-                //Envio datos
-
-            }
+                isPressed[0] = !isPressed[0];}//close onClick
         });//Close L3.setOnClickListener
 
         //Boton Luz 4
@@ -38,14 +34,10 @@ public class buttons extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(isPressed[0]){ //led off
-                    bL4.setBackgroundResource(R.drawable.led_red);
-                }
-                else{
-                    //led on
-                    bL4.setBackgroundResource(R.drawable.led_green);
-                }
-                isPressed[0] = !isPressed[0];
-            }
+                    bL4.setBackgroundResource(R.drawable.led_red);}
+                else{//led on
+                    bL4.setBackgroundResource(R.drawable.led_green);}
+                isPressed[0] = !isPressed[0];}//Close onClick
         });//Close L4.setOnClickListener
 
         //Boton Luz 5
@@ -54,13 +46,10 @@ public class buttons extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(isPressed[0]){ //led off
-                    bL5.setBackgroundResource(R.drawable.led_red);
-                }
+                    bL5.setBackgroundResource(R.drawable.led_red);}
                 else{//led on
-                    bL5.setBackgroundResource(R.drawable.led_green);
-                }
-                isPressed[0] = !isPressed[0];
-            }
+                    bL5.setBackgroundResource(R.drawable.led_green);}
+                isPressed[0] = !isPressed[0];}//close onClick
         });//Close L5.setOnClickListener
 
         //Boton Luz 6
@@ -69,30 +58,24 @@ public class buttons extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(isPressed[0]){//led off
-                    bL6.setBackgroundResource(R.drawable.led_red);
-                }
+                    bL6.setBackgroundResource(R.drawable.led_red);}
                 else{//led on
-                    bL6.setBackgroundResource(R.drawable.led_green);
-                }
-                isPressed[0] = !isPressed[0];
-            }
+                    bL6.setBackgroundResource(R.drawable.led_green);}
+                isPressed[0] = !isPressed[0];}//Close onClick
         });//Close L6.setOnClickListener
 
         //Boton Luz 7
         bL7 = (Button) findViewById(R.id.Luz7);
-        bL7.setOnClickListener(new View.OnClickListener(){
+        bL7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isPressed[0]){//led off
+                if (isPressed[0]) {//led off
                     bL7.setBackgroundResource(R.drawable.led_red);
-                }
-                else{ //led on
+                } else { //led on
                     bL7.setBackgroundResource(R.drawable.led_green);
                 }
                 isPressed[0] = !isPressed[0];
-            }
+            }//Close onClick
         });//Close L7.setOnClickListener
-
-
-    }
-}
+    }//Close onCreate
+}//Close class

@@ -1,5 +1,6 @@
 package com.tec.controlluces;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,10 +19,8 @@ import java.net.UnknownHostException;
 public class ControlLuces extends AppCompatActivity {
 
     //Creacion de variables
-    Boolean[] isPressed = {false};
-    Button bL3, bL4, bL5, bL6, bL7;
     EditText changeAddress,changePort;
-    Button bConnect, bClear;
+    Button bConnect, bClear, bContinue;
     TextView tResponse;
 
     @Override
@@ -32,93 +31,28 @@ public class ControlLuces extends AppCompatActivity {
         //Definicion de variables
         changeAddress = (EditText) findViewById(R.id.address);
         changePort = (EditText) findViewById(R.id.port);
+        tResponse = (TextView)findViewById(R.id.response);
         bConnect = (Button)findViewById(R.id.connect);
         bClear = (Button)findViewById(R.id.clear);
-        tResponse = (TextView)findViewById(R.id.response);
+        bContinue = (Button)findViewById(R.id.continuar);
 
+        //setClickOnListener
         bConnect.setOnClickListener(bConnectOnClickListener);
+
         bClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tResponse.setText("");
+                changeAddress.setText("");
+                changePort.setText("");
             } });
-
-        //Boton Luz 3
-        bL3 = (Button) findViewById(R.id.Luz3);
-        bL3.setOnClickListener(new View.OnClickListener(){
+        bContinue.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(isPressed[0]){ //led off
-                    bL3.setBackgroundResource(R.drawable.led_red);}
-                else{ //led on
-                    bL3.setBackgroundResource(R.drawable.led_green);}
-                isPressed[0] = !isPressed[0];
-
-                //Envio datos
-
+                Intent goButtons = new Intent(ControlLuces.this,buttons.class);
+                startActivity(goButtons);
             }
-        });//Close L3.setOnClickListener
-
-        //Boton Luz 4
-        bL4 = (Button) findViewById(R.id.Luz4);
-        bL4.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(isPressed[0]){ //led off
-                    bL4.setBackgroundResource(R.drawable.led_red);
-                    }
-                else{
-                    //led on
-                    bL4.setBackgroundResource(R.drawable.led_green);
-                    }
-                isPressed[0] = !isPressed[0];
-            }
-        });//Close L4.setOnClickListener
-
-        //Boton Luz 5
-        bL5 = (Button) findViewById(R.id.Luz5);
-        bL5.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(isPressed[0]){ //led off
-                    bL5.setBackgroundResource(R.drawable.led_red);
-                    }
-                else{//led on
-                    bL5.setBackgroundResource(R.drawable.led_green);
-                    }
-                isPressed[0] = !isPressed[0];
-            }
-        });//Close L5.setOnClickListener
-
-        //Boton Luz 6
-        bL6 = (Button) findViewById(R.id.Luz6);
-        bL6.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(isPressed[0]){//led off
-                    bL6.setBackgroundResource(R.drawable.led_red);
-                    }
-                else{//led on
-                    bL6.setBackgroundResource(R.drawable.led_green);
-                    }
-                isPressed[0] = !isPressed[0];
-            }
-        });//Close L6.setOnClickListener
-
-        //Boton Luz 7
-        bL7 = (Button) findViewById(R.id.Luz7);
-        bL7.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(isPressed[0]){//led off
-                    bL7.setBackgroundResource(R.drawable.led_red);
-                    }
-                else{ //led on
-                    bL7.setBackgroundResource(R.drawable.led_green);
-                    }
-                isPressed[0] = !isPressed[0];
-            }
-        });//Close L7.setOnClickListener
+        });
 
     }//Close void onCreate
 
