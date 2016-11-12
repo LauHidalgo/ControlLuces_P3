@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,8 +20,11 @@ SOURCES += main.cpp\
 
 HEADERS  += pantalla_principal.h \
     pantalla_evento_agregar.h \
-    pantalla_historial.h
+    pantalla_historial.h \
+    myTCPServer.h
 
 FORMS    += pantalla_principal.ui \
     pantalla_evento_agregar.ui \
     pantalla_historial.ui
+
+LIBS +=-L/usr/local/lib -lwiringPi

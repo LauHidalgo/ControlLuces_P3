@@ -410,6 +410,9 @@
       <height>26</height>
      </rect>
     </property>
+    <property name="displayFormat">
+     <string>hh:mm AP</string>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

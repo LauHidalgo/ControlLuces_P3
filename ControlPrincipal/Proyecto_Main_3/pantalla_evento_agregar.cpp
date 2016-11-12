@@ -1,3 +1,14 @@
+////////////////////////////////////////////////////
+//Tecnológico de Costa Rica - Tecnológico de Costa Rica
+//Escuela de Ingeniería Electrónica - Curso Laboratorio de Estructura de Microprocesadores
+//Proyecto #3 - sistema de control de luces para un hogar
+//Integrantes del grupo 3:
+//  - Anthony Chaves Vásquez
+//  - Laura Hidalgo Soto
+//  - Carlos Murillo Soto
+//  - Irene Rivera Arrieta
+//Fecha de entrega: 7 de noviembre de 2017
+
 #include "pantalla_evento_agregar.h"
 #include "ui_pantalla_evento_agregar.h"
 #include "pantalla_principal.h"
@@ -8,7 +19,14 @@
 #include <QDebug>
 
 
+//=======================================================================//
+//      Declaracion de variables y objetos
+//=======================================================================//
+
+//Elemento para tomar la fecha y hora del sistema
 QDateTime fecha_hora_sistema;
+
+//Llamado a variables que se encuentran declaradas en otros objetos ya creados
 extern QDateTime pantalla_agregar_fecha_hora;
 extern int pantalla_agregar_luz_8;
 extern bool pantalla_agregar_luz_3,pantalla_agregar_luz_4,pantalla_agregar_luz_5,pantalla_agregar_luz_6,pantalla_agregar_luz_7;
@@ -20,8 +38,10 @@ pantalla_evento_agregar::pantalla_evento_agregar(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //Cuando se crea un objeto, se toma la fecha y hora del sistema
+    //para configurar el widget al tiempo más actualizado
     fecha_hora_sistema = QDateTime::currentDateTime();
-    ui->dateEdit_Fecha->setDate(fecha_hora_sistema.date());
+    ui->dateEdit_Fecha->setDate(fecha_hora_sistema.date());    
 }
 
 pantalla_evento_agregar::~pantalla_evento_agregar()
@@ -96,10 +116,8 @@ void pantalla_evento_agregar::on_pushButton_Aceptar_pressed()
     fecha_hora_sistema = QDateTime::currentDateTime();
     int segundos_restantes = test->secsTo(fecha_hora_sistema);
 
-    //Pruebas
-    qDebug() << "Segundos restantes evento programado: " << segundos_restantes;
-    //Pruebas
-
+    //Si el evento se encuentra en un tiempo o fecha anterior al actual
+    //no se procesa la adición del evento en la lista de eventos
     if(segundos_restantes >= 0){
         QMessageBox::information(this, "Error", "La fecha del evento programado es anterior a la fecha actual");
     }
@@ -117,7 +135,7 @@ void pantalla_evento_agregar::on_pushButton_Aceptar_pressed()
         emit ventana_cerrar();
     }
 
-
+    //Se cierra la ventana
     pantalla_evento_agregar::close();
 }
 
