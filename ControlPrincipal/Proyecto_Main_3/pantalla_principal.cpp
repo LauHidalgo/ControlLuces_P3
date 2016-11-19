@@ -147,7 +147,7 @@ void Pantalla_Principal::inicializacion_pantalla_principal(){
     pinMode(4,OUTPUT);  //BCM: 23 - GPIOwPi  - Luz 4 LED
     pinMode(3,OUTPUT);  //BCM: 22 - GPIOwPi  - Luz 3 LED
     pinMode(29,INPUT);  //BCM: 21 - GPIOwPi  - Luz 1/2 Fotoresistencia
-    softPwmCreate(2,0,100); //Declaracion del pin 16 BCM (GPIO 27) como pin PWM para la Luz 8
+    softPwmCreate(2,0,50); //Declaracion del pin 16 BCM (GPIO 27) como pin PWM para la Luz 8
 
 
 

@@ -130,7 +130,7 @@ void pantalla_evento_agregar::on_pushButton_Aceptar_pressed()
         pantalla_agregar_luz_5 = ui->Button_luz_5_2->isChecked();
         pantalla_agregar_luz_6 = ui->Button_luz_6_2->isChecked();
         pantalla_agregar_luz_7 = ui->Button_luz_7_2->isChecked();
-        pantalla_agregar_luz_8 = ui->Slider_luz_8_2->value();
+        pantalla_agregar_luz_8 = 100 - ui->Slider_luz_8_2->value();
 
         emit ventana_cerrar();
     }
