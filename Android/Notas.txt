@@ -1,3 +1,8 @@
 La carpeta CL tiene la finalidad de realizar pruebas.
 Segunda prueba, se va a probar poniendo una ip estática, 
 esto significa que no se va a ingresar desde la app.
+
+
+
+En la carpeta ControlLucesFINAL se encuentra la versión final de la app
+FINAL
